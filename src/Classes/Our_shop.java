@@ -5,6 +5,8 @@
  */
 package Classes;
 
+import JFrames.login;
+
 /**
  *
  * @author Dushk
@@ -16,6 +18,8 @@ public class Our_shop {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        JFrames.login l = new login();
+        l.setVisible(true);
     }
     
 }
