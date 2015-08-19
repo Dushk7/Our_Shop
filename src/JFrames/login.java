@@ -48,10 +48,25 @@ public class login extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(550, 300));
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(550, 300));
 
         jLabel1.setText("User Name:");
 
         jLabel2.setText("Password:");
+
+        user_name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                user_nameActionPerformed(evt);
+            }
+        });
+
+        user_pass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                user_passActionPerformed(evt);
+            }
+        });
 
         signIn.setText("Sign In");
         signIn.addActionListener(new java.awt.event.ActionListener() {
@@ -128,7 +143,7 @@ public class login extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,24 +151,27 @@ public class login extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void signInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signInActionPerformed
         // TODO add your handling code here:
+     if(user_name.getText().equals("")&&user_pass.getText().equals("")){
+         
+         JOptionPane.showMessageDialog(this, "Cant Login.. Becouse, Text Filed are null...", "Information", JOptionPane.WARNING_MESSAGE);
+        
+     
+     }else{
         try {       
             String sql2 = "Select user_name,user_pass from login where user_name='"+user_name.getText()+"' and user_pass='"+user_pass.getText()+"' ";
             ResultSet rs1 = DB.search(sql2);
             if(rs1.next()){
-                JOptionPane.showMessageDialog(this, "Succesfully login.", "Welcome", JOptionPane.INFORMATION_MESSAGE);
-                
                new Thread(new Runnable(){
                    @Override
                    public void run(){
-                       
                        try {
                            for(int i=0 ; i < 101 ; i++){
                                jProgressBar1.setValue(i);
-                               
                                if(i == 100){
                                    home h = new home();
                                    h.setVisible(true);
@@ -161,33 +179,37 @@ public class login extends javax.swing.JFrame {
                                }
                                Thread.sleep(50);
                            }
-                           
                        } catch (Exception e) {
-                           
                        }
-                       
                    }
-                   
                }).start();
-               
-               
-                
-            }
-            else{
+            }else{
                 JOptionPane.showMessageDialog(this, "Your user name or passowrd incorrect.", "Retry", JOptionPane.WARNING_MESSAGE);
+                user_name.setText(null);
+                user_pass.setText(null);
+                user_name.grabFocus();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+     }
     }//GEN-LAST:event_signInActionPerformed
 
     private void signUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpActionPerformed
-        // TODO add your handling code here:
+       
         signUP sg = new signUP();
         sg.setVisible(true);
         this.dispose();
         
     }//GEN-LAST:event_signUpActionPerformed
+
+    private void user_passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_passActionPerformed
+        signIn.doClick();
+    }//GEN-LAST:event_user_passActionPerformed
+
+    private void user_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_nameActionPerformed
+       user_pass.grabFocus();
+    }//GEN-LAST:event_user_nameActionPerformed
 
     /**
      * @param args the command line arguments

@@ -58,7 +58,8 @@ public class signUP extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(450, 450));
+
+        jTabbedPane1.setPreferredSize(new java.awt.Dimension(550, 450));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(300, 300));
 
@@ -169,6 +170,8 @@ public class signUP extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("User Details", jPanel1);
 
+        jPanel2.setPreferredSize(new java.awt.Dimension(300, 300));
+
         jLabel2.setText("Login Name:");
 
         jLabel8.setText("Login password:");
@@ -243,14 +246,15 @@ public class signUP extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void ur_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ur_nameActionPerformed
@@ -273,6 +277,11 @@ public class signUP extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        if(user_name.getText().equals("")&&user_pass1.getText().equals("")&&user_pass2.getText().equals("")){
+        
+        JOptionPane.showMessageDialog(this, "Cant save.. Becouse, Text Filed are null...", "Information", JOptionPane.WARNING_MESSAGE);
+        
+        }else{
         try {
             int status = 1;
             String sql2 = "Select user_name from login where user_name='"+user_name.getText()+"'";
@@ -303,6 +312,9 @@ public class signUP extends javax.swing.JFrame {
                 }
                 else{
                     JOptionPane.showMessageDialog(this, "Your password is not match.Please check again.", "Warning", JOptionPane.WARNING_MESSAGE);
+                    user_pass1.setText(null);
+                    user_pass2.setText(null); 
+                    
                 }
             }
             
@@ -310,6 +322,7 @@ public class signUP extends javax.swing.JFrame {
            
         } catch (Exception e) {
             e.printStackTrace();
+        }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
